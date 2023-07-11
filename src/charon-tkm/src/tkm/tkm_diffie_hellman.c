@@ -69,11 +69,16 @@ METHOD(diffie_hellman_t, get_shared_secret, bool,
 	return TRUE;
 }
 
-
 METHOD(diffie_hellman_t, set_other_public_value, bool,
 	private_tkm_diffie_hellman_t *this, chunk_t value)
 {
 	dh_pubvalue_type othervalue;
+
+	if (!diffie_hellman_verify_value(this->group, value) ||
+		value.len > sizeof(othervalue.data))
+	{
+		return FALSE;
+	}
 	othervalue.size = value.len;
 	memcpy(&othervalue.data, value.ptr, value.len);
 
