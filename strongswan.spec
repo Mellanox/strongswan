@@ -19,6 +19,9 @@ BuildRequires: flex
 BuildRequires: libtool
 BuildRequires: gcc >= 3
 
+Provides: strongswan
+Obsoletes: strongswan
+
 %package -n strongswan-swanctl
 Summary: Placeholder package for strongswan-swanctl for dependency resolution
 %description -n strongswan-swanctl
