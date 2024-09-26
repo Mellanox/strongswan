@@ -1918,6 +1918,8 @@ AM_CONDITIONAL(USE_SWANCTL, test x$swanctl = xtrue)
 AM_CONDITIONAL(USE_SVC, test x$svc = xtrue)
 AM_CONDITIONAL(USE_SYSTEMD, test x$systemd = xtrue)
 AM_CONDITIONAL(USE_LEGACY_SYSTEMD, test -n "$systemdsystemunitdir" -a "x$systemdsystemunitdir" != xno)
+# Disable legacy systemd
+AM_CONDITIONAL(USE_LEGACY_SYSTEMD, false)
 AM_CONDITIONAL(USE_RUBY_GEMS, test x$ruby_gems = xtrue)
 AM_CONDITIONAL(USE_PYTHON_EGGS, test x$python_eggs = xtrue)
 AM_CONDITIONAL(USE_PERL_CPAN, test x$perl_cpan = xtrue)

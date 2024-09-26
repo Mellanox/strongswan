@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+systemctl stop strongswan-starter.service > /dev/null 2>&1 || true
+systemctl disable strongswan-starter.service > /dev/null 2>&1 || true
+# systemctl stop strongswan.service || true
+# systemctl disable strongswan.service || true
+
+#DEBHELPER#
+
+exit 0

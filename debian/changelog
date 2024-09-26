@@ -1,5 +1,5 @@
-strongswan (5.9.10-1.bf) RELEASED;
+strongswan (5.9.10-2.bf) unstable; urgency=low
 
   * Initial bluefield release.
 
- -- Feras Bisharat <fbisharat@nvidia.com>  Tue, 05 Oct 2023 14:07:36 +0200
+ -- Feras Bisharat <fbisharat@nvidia.com>  Thu, 26 Sep 2024 13:09:38 +0300

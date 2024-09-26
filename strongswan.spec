@@ -1,6 +1,6 @@
-Name: strongswan-bf
+Name: strongswan
 Version: 5.9.10
-Release: 1.bf%{?dist}
+Release: 2.bf%{?dist}
 Summary: BlueField Strongswan Package
 
 License: BSD and GPLv2+ and MIT and Expat
@@ -19,9 +19,6 @@ BuildRequires: flex
 BuildRequires: libtool
 BuildRequires: gcc >= 3
 
-Provides: strongswan
-Obsoletes: strongswan
-
 %package -n strongswan-swanctl
 Summary: Placeholder package for strongswan-swanctl for dependency resolution
 %description -n strongswan-swanctl
@@ -36,11 +33,15 @@ Linux Kernel.
 %files -n strongswan-swanctl
 
 %prep
-%setup
+rm -rf build/* || rm -rf strongswan-5.9.10 || true
+
+%setup -q
 cp -f systemd-conf/strongswan-starter.service.in.centos init/systemd-starter/strongswan-starter.service.in
 cp -f systemd-conf/strongswan.service.in.centos init/systemd/strongswan.service.in
+./autogen.sh
 
 %build
+export CFLAGS="$CFLAGS -Wformat -Wno-error -Wno-error=format -Wno-error=format-extra-args"
 %configure \
 	--enable-openssl \
 	--disable-random \
@@ -59,7 +60,8 @@ cp -f mlnx-conf/BFL.swanctl.conf $RPM_BUILD_ROOT%{_sysconfdir}/swanctl/conf.d
 cp -f mlnx-conf/BFR.swanctl.conf $RPM_BUILD_ROOT%{_sysconfdir}/swanctl/conf.d
 
 %preun
-systemctl disable strongswan-starter.service
+systemctl stop strongswan-starter.service > /dev/null 2>&1 || true
+systemctl disable strongswan-starter.service > /dev/null 2>&1 || true
 
 %post
 # Use the strongswan.service instead of the legacy strongswan-starter
