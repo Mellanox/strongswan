@@ -32,6 +32,8 @@ Linux Kernel.
 
 %files -n strongswan-swanctl
 
+%global debug_package %{nil}
+
 %prep
 rm -rf build/* || rm -rf strongswan-5.9.10 || true
 
@@ -41,7 +43,7 @@ cp -f systemd-conf/strongswan.service.in.centos init/systemd/strongswan.service.
 ./autogen.sh
 
 %build
-export CFLAGS="$CFLAGS -Wformat -Wno-error -Wno-error=format -Wno-error=format-extra-args"
+export CFLAGS="$CFLAGS -Wformat -Wno-error -Wno-error=format -Wno-error=format-extra-args -fPIC"
 %configure \
 	--enable-openssl \
 	--disable-random \
@@ -79,7 +81,6 @@ systemctl enable strongswan.service
 /usr/libexec/ipsec
 %{_sysconfdir}/
 %{_datadir}/
-/usr/lib/systemd/system/strongswan-starter.service
 /usr/lib/systemd/system/strongswan.service
 /usr/sbin/charon-systemd
 
